@@ -2,7 +2,7 @@
  * @Author: X_Heart
  * @Date: 2017-06-09 10:46:38
  * @Last Modified by: X_Heart
- * @Last Modified time: 2018-01-25 22:10:39
+ * @Last Modified time: 2018-01-06 18:15:08
  * @description: 
  */
 const express = require('express')
@@ -18,6 +18,18 @@ app.set('view engine', 'html')
 app.set('port', (process.env.PORT || 5000));
 // 静态文件中间件
 app.use(express.static('./public'))
+// 图书列表页
+app.get('/', router.showIndex)
+// 添加图书页面
+app.get('/addbook', router.addBook)
+// 添加图书业务
+app.get('/doadd', router.doAdd)
+// 修改图书页面
+app.get('/editbook', router.editBook)
+// 修改图书业务
+app.get('/doedit/:id', router.doEdit)
+// 删除业务
+app.get('/dodel', router.doDel)
 
 var apiRoutes = express.Router()
 app.use('/api', apiRoutes)
