@@ -2,7 +2,7 @@
  * @Author: X_Heart
  * @Date: 2017-06-09 10:46:38
  * @Last Modified by: wangxiaoxin
- * @Last Modified time: 2018-03-21 11:13:20
+ * @Last Modified time: 2018-03-21 11:39:20
  * @description: 
  */
 const express = require('express')
@@ -23,7 +23,7 @@ app.use(express.static('./public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 // 首页
-app.get('/', router.showIndex)
+// app.get('/', router.showIndex)
 
 var apiRoutes = express.Router()
 app.use('/api', apiRoutes)
