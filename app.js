@@ -1,12 +1,13 @@
 /*
  * @Author: X_Heart
  * @Date: 2017-06-09 10:46:38
- * @Last Modified by: X_Heart
- * @Last Modified time: 2018-01-06 18:15:08
+ * @Last Modified by: wangxiaoxin
+ * @Last Modified time: 2018-03-21 11:13:20
  * @description: 
  */
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const router = require('./router/router')
 const axios = require('axios')
@@ -18,22 +19,16 @@ app.set('view engine', 'html')
 app.set('port', (process.env.PORT || 5000));
 // 静态文件中间件
 app.use(express.static('./public'))
-// 图书列表页
+// req.body
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+// 首页
 app.get('/', router.showIndex)
-// 添加图书页面
-app.get('/addbook', router.addBook)
-// 添加图书业务
-app.get('/doadd', router.doAdd)
-// 修改图书页面
-app.get('/editbook', router.editBook)
-// 修改图书业务
-app.get('/doedit/:id', router.doEdit)
-// 删除业务
-app.get('/dodel', router.doDel)
 
 var apiRoutes = express.Router()
 app.use('/api', apiRoutes)
 
+// vue-music
 app.get('/api/getDiscList', (req, res) => {
   var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
   axios.get(url, {
@@ -94,6 +89,57 @@ app.get('/api/disc', (req, res) => {
     console.log(e)
   })
 })
+
+// elm
+var appData = require('./data.json')
+
+app.get('/api/seller',function(req,res){
+  res.json({
+      errno: 0,
+      data: appData.seller
+  });
+});
+
+app.get('/api/goods',function (req,res) {
+  res.json({
+      errno: 0,
+      data: appData.goods
+  });
+});
+
+app.get('/api/ratings',function (req,res) {
+  res.json({
+      errno: 0,
+      data: appData.ratings
+  });
+});
+
+// 转https服务
+app.post('/server',function (req,res) {
+  const url = req.body.url
+  if (url) {
+    axios.post(url, {
+      params: req.body
+    }).then((response) => {
+      var data = response.data
+      res.json({
+        error: 0,
+        data,
+        message: 'sucess'
+      })
+    }).catch((e) => {
+      res.json({
+        error: 1,
+        message: e
+      })
+    })
+  } else {
+    res.json({
+      error: 1,
+      message: '需要传url参数！'
+    })
+  }
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
