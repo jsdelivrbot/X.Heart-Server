@@ -2,7 +2,7 @@
  * @Author: X_Heart
  * @Date: 2017-06-09 10:46:38
  * @Last Modified by: wangxiaoxin
- * @Last Modified time: 2018-03-21 11:42:12
+ * @Last Modified time: 2018-03-21 11:44:09
  * @description: 
  */
 const express = require('express')
@@ -91,55 +91,55 @@ app.get('/api/disc', (req, res) => {
 })
 
 // elm
-// var appData = require('./data.json')
+var appData = require('./data.json')
 
-// app.get('/api/seller',function(req,res){
-//   res.json({
-//       errno: 0,
-//       data: appData.seller
-//   });
-// });
+app.get('/api/seller',function(req,res){
+  res.json({
+      errno: 0,
+      data: appData.seller
+  });
+});
 
-// app.get('/api/goods',function (req,res) {
-//   res.json({
-//       errno: 0,
-//       data: appData.goods
-//   });
-// });
+app.get('/api/goods',function (req,res) {
+  res.json({
+      errno: 0,
+      data: appData.goods
+  });
+});
 
-// app.get('/api/ratings',function (req,res) {
-//   res.json({
-//       errno: 0,
-//       data: appData.ratings
-//   });
-// });
+app.get('/api/ratings',function (req,res) {
+  res.json({
+      errno: 0,
+      data: appData.ratings
+  });
+});
 
-// // 转https服务
-// app.post('/server',function (req,res) {
-//   const url = req.body.url
-//   if (url) {
-//     axios.post(url, {
-//       params: req.body
-//     }).then((response) => {
-//       var data = response.data
-//       res.json({
-//         error: 0,
-//         data,
-//         message: 'sucess'
-//       })
-//     }).catch((e) => {
-//       res.json({
-//         error: 1,
-//         message: e
-//       })
-//     })
-//   } else {
-//     res.json({
-//       error: 1,
-//       message: '需要传url参数！'
-//     })
-//   }
-// });
+// 转https服务
+app.post('/server',function (req,res) {
+  const url = req.body.url
+  if (url) {
+    axios.post(url, {
+      params: req.body
+    }).then((response) => {
+      var data = response.data
+      res.json({
+        error: 0,
+        data,
+        message: 'sucess'
+      })
+    }).catch((e) => {
+      res.json({
+        error: 1,
+        message: e
+      })
+    })
+  } else {
+    res.json({
+      error: 1,
+      message: '需要传url参数！'
+    })
+  }
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
