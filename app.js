@@ -2,7 +2,7 @@
  * @Author: X_Heart
  * @Date: 2017-06-09 10:46:38
  * @Last Modified by: wangxiaoxin
- * @Last Modified time: 2018-03-21 11:44:09
+ * @Last Modified time: 2018-03-22 15:03:41
  * @description: 
  */
 const express = require('express')
@@ -16,7 +16,8 @@ const axios = require('axios')
 app.engine('html', ejs.__express)
 app.set('view engine', 'html')
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', 80);
+// app.set('port', (process.env.PORT || 5000));
 // 静态文件中间件
 app.use(express.static('./public'))
 // req.body
