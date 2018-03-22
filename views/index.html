@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="/static/js/jquery.min.js"></script>
   <title>X.Heart-Contents</title>
   <style>
     .hidden-icon{
@@ -24,5 +25,24 @@
     <h3>Node</h3>
     <li><a href="https://xheart-booksystem.herokuapp.com/">图书列表</a></li>
   </ul>
+  <script>
+    function https() {
+      $.ajax({
+        url: '/server',
+        method: 'POST',
+        type: 'JSON',
+        data: {
+          url: 'http://ydyl.news.cn/2017-09/04/c_1121603180.htm',
+          method: 'GET'
+        },
+        success: function(res) {
+          console.log(res)
+        },
+        fail: function(err) {
+         console.log(err)
+        }
+      })
+    }
+  </script>
 </body>
 </html>

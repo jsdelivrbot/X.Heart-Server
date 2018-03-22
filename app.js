@@ -2,7 +2,7 @@
  * @Author: X_Heart
  * @Date: 2017-06-09 10:46:38
  * @Last Modified by: wangxiaoxin
- * @Last Modified time: 2018-03-22 15:03:41
+ * @Last Modified time: 2018-03-22 17:26:36
  * @description: 
  */
 const express = require('express')
@@ -16,8 +16,7 @@ const axios = require('axios')
 app.engine('html', ejs.__express)
 app.set('view engine', 'html')
 
-app.set('port', 80);
-// app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 5000));
 // 静态文件中间件
 app.use(express.static('./public'))
 // req.body
@@ -118,9 +117,14 @@ app.get('/api/ratings',function (req,res) {
 // 转https服务
 app.post('/server',function (req,res) {
   const url = req.body.url
+  const method = req.body.method || 'POST'
+  const headers = req.body.headers || {}
   if (url) {
-    axios.post(url, {
-      params: req.body
+    axios({
+        method,
+        url,
+        headers,
+        params: req.body,
     }).then((response) => {
       var data = response.data
       res.json({
